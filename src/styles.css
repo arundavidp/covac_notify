@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+.App {
+  font-family: "Nunito";
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+p {
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+select {
+  font-size: 1.125rem;
+  border: 2px solid #2b2d42;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+}
+
+.Btn {
+  /* background-color: #2b2d42;
+  color: #ffffff; */
+  background-color: inherit;
+  color: #2b2d42;
+  border: 2px solid #2b2d42;
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.Btn-S {
+  /* background-color: inherit;
+  color: #2b2d42;
+  border: 2px solid #2b2d42; */
+  background-color: #fafafa;
+  color: #2b2d42;
+  border-radius: 10px;
+  /* padding: 0.25rem 0.5rem; */
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.App-Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.App-Logo {
+  position: relative;
+}
+
+.App-Logo h2 {
+  color: #ef233c;
+}
+
+.App-Logo::before {
+  content: "";
+  position: absolute;
+  height: 0.5rem;
+  width: 2.5rem;
+  bottom: -0.25rem;
+  left: 0;
+
+  background-color: #2b2d42;
+}
+
+.App-Navigation ul li {
+  font-size: 1.125rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.App-Navigation ul li:hover {
+  background-color: rgba(43, 45, 66, 0.25);
+  border-radius: 10px;
+}
+
+.Dashboard-Field {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Dashboard-Field-Button {
+  margin-left: 1rem;
+}
+
+.Dashboard-Field-Container {
+  margin-bottom: 1rem;
+}
+
+.Dashboard-Field-Container h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+.Dashboard-Hero {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #bde0fe;
+  padding: 1.125rem 1rem 1.125rem;
+}
+
+.Dashboard-Notify-Button {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #2b2d42;
+  color: #fafafa;
+  border: none;
+}
+
+.Dashboard-Status-Container {
+  padding: 0 1rem 0;
+}
+
+.Dashboard-Status-Header {
+  position: relative;
+}
+
+.Dashboard-Status-Header::before {
+  position: absolute;
+  height: 0.5rem;
+  width: 3.4rem;
+  bottom: -0.5rem;
+  left: 0;
+  content: "";
+  background-color: #2b2d42;
+}
+
+.Dashboard-Sign-Out {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.Dashboard-Sign-Out-Button {
+  margin-left: 1rem;
+}
+
+.Dashboard-User-Container {
+  padding: 0 1rem 0;
+}
