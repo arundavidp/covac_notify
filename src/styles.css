@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
-.App {
+.Dashboard {
   font-family: "Nunito";
+  margin: 0 auto;
 }
 
 h1 {
@@ -18,11 +19,14 @@ p {
   font-weight: 400;
 }
 
-select {
+select,
+input {
   font-size: 1.125rem;
   border: 2px solid #2b2d42;
   border-radius: 10px;
   padding: 0.5rem 0.75rem;
+  outline: none;
+  width: 100%;
 }
 
 .Btn {
@@ -72,7 +76,7 @@ select {
   content: "";
   position: absolute;
   height: 0.5rem;
-  width: 2.5rem;
+  width: 8.5rem;
   bottom: -0.25rem;
   left: 0;
 
@@ -94,6 +98,7 @@ select {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  max-width: 400px;
 }
 
 .Dashboard-Field-Button {
@@ -109,6 +114,10 @@ select {
   font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.5rem;
+}
+
+.Dashboard-Field-Number {
+  width: unset;
 }
 
 .Dashboard-Hero {
@@ -157,4 +166,10 @@ select {
 
 .Dashboard-User-Container {
   padding: 0 1rem 0;
+}
+
+@media (min-width: 1024px) {
+  .Dashboard {
+    max-width: 1024px;
+  }
 }

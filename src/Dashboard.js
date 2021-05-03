@@ -5,20 +5,21 @@ import Header from "./Header";
 
 export default function Dashboard() {
   return (
-    <div className="Dasboard">
+    <div className="Dashboard">
       <Header />
       <main>
-        <div className="Dashboard-User-Container">
-          <h1>
-            Hi, <span className="Dashboard-User-Mobile">1234567891</span>
-          </h1>
-          <div className="Dashboard-Sign-Out">
-            <p>not you?,</p>
-            <div className="Dashboard-Sign-Out-Button Btn">SIGN OUT</div>
+        <form>
+          <div className="Dashboard-User-Container">
+            <div className="Dashboard-Field-Container">
+              <label>
+                <h4>Your email to get notified for vaccine slots?</h4>
+                <div className="Dashboard-Field">
+                  <input type="text" />
+                </div>
+              </label>
+            </div>
           </div>
-        </div>
-        <div className="Dashboard-Hero">
-          <form>
+          <div className="Dashboard-Hero">
             <div className="Dashboard-Field-Container">
               <label>
                 <h4>Select the state where you reside?</h4>
@@ -28,7 +29,6 @@ export default function Dashboard() {
                     <option value="punjab">Punjab</option>
                     <option value="tamilnadu">Tamil Nadu</option>
                   </select>
-                  <div className="Dashboard-Field-Button Btn-S">RESET</div>
                 </div>
               </label>
             </div>
@@ -43,7 +43,6 @@ export default function Dashboard() {
                     <option value="trivandrum">Trivandrum</option>
                     <option value="wayanad">Wayanad</option>
                   </select>
-                  <div className="Dashboard-Field-Button Btn-S">ADD</div>
                 </div>
               </label>
             </div>
@@ -54,20 +53,19 @@ export default function Dashboard() {
                   notified?
                 </h4>
                 <div className="Dashboard-Field">
-                  <select defaultValue="2">
+                  <select className="Dashboard-Field-Number" defaultValue="2">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="2+">2+</option>
                   </select>
-                  <div className="Dashboard-Field-Button Btn-S">RESET</div>
                 </div>
               </label>
             </div>
             <div type="submit" className="Dashboard-Notify-Button Btn">
-              NOTIFY ME
+              NOTIFY ME IN EMAIL
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </main>
       <div className="Dashboard-Status-Container">
         <h2 className="Dashboard-Status-Header">Status</h2>

@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="App-Header">
       <div className="App-Logo">
-        <h2>COSOL</h2>
+        <h2>COVAC NOTIFY</h2>
       </div>
       <div className="App-Navigation">
         <ul>
