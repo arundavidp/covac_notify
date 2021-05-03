@@ -1,9 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./styles.css";
 
 import Header from "./Header";
 
 export default function Dashboard() {
+  const [inStates, setInStates] = useState([]);
+  const [selectedState, setSelectedState] = useState(1);
+  const [districts, setDistricts] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState(1);
+  const [error, setError] = useState("");
+
+  const handleInStateSelection = (event) => {
+    event.preventDefault();
+    setSelectedState(event.target.value);
+  };
+
+  const handleDistrictSelection = (event) => {
+    event.preventDefault();
+    setSelectedDistrict(event.target.value);
+  };
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "https://cdn-api.co-vin.in/api/v2/admin/location/states",
+      params: {
+        language: "en_US"
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          setInStates(response.data.states);
+          setError("Data couldn't be retrieved from Govt. server");
+        } else {
+          setInStates([]);
+          setError();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Data couldn't be retrieved from Govt. server");
+      });
+  }, []);
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/${selectedState}`,
+      params: {
+        language: "en_US"
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.districts);
+          setDistricts(response.data.districts);
+          setError("Data couldn't be retrieved from Govt. server");
+        } else {
+          setDistricts([]);
+          setError();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Data couldn't be retrieved from Govt. server");
+      });
+  }, [selectedState]);
+
   return (
     <div className="Dashboard">
       <Header />
@@ -24,10 +88,18 @@ export default function Dashboard() {
               <label>
                 <h4>Select the state where you reside?</h4>
                 <div className="Dashboard-Field">
-                  <select defaultValue="punjab">
-                    <option value="kerala">Kerala</option>
-                    <option value="punjab">Punjab</option>
-                    <option value="tamilnadu">Tamil Nadu</option>
+                  <select
+                    value={selectedState}
+                    onChange={handleInStateSelection}
+                  >
+                    {inStates &&
+                      inStates.map((item, index) => {
+                        return (
+                          <option key={item.state_id} value={item.state_id}>
+                            {item.state_name}
+                          </option>
+                        );
+                      })}
                   </select>
                 </div>
               </label>
@@ -38,15 +110,26 @@ export default function Dashboard() {
                   Select the district where you want to look for vaccine slot?
                 </h4>
                 <div className="Dashboard-Field">
-                  <select defaultValue="wayanad">
-                    <option value="ernakulam">Ernakulam</option>
-                    <option value="trivandrum">Trivandrum</option>
-                    <option value="wayanad">Wayanad</option>
+                  <select
+                    value={selectedDistrict}
+                    onChange={handleDistrictSelection}
+                  >
+                    {districts &&
+                      districts.map((item, index) => {
+                        return (
+                          <option
+                            key={item.district_id}
+                            value={item.district_id}
+                          >
+                            {item.district_name}
+                          </option>
+                        );
+                      })}
                   </select>
                 </div>
               </label>
             </div>
-            <div className="Dashboard-Field-Container">
+            {/* <div className="Dashboard-Field-Container">
               <label>
                 <h4>
                   How many slots need to be free in a center for you to get
@@ -60,7 +143,7 @@ export default function Dashboard() {
                   </select>
                 </div>
               </label>
-            </div>
+            </div> */}
             <div type="submit" className="Dashboard-Notify-Button Btn">
               NOTIFY ME IN EMAIL
             </div>
