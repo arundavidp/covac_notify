@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./styles.css";
+import firebase from "@firebase/app";
+import db from "./firebase";
 
 import Header from "./Header";
 
 export default function Dashboard() {
+  const [email, setEmail] = useState("");
   const [inStates, setInStates] = useState([]);
   const [selectedState, setSelectedState] = useState(1);
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState(1);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const handleInStateSelection = (event) => {
@@ -19,6 +23,33 @@ export default function Dashboard() {
   const handleDistrictSelection = (event) => {
     event.preventDefault();
     setSelectedDistrict(event.target.value);
+  };
+
+  const handleEmailInput = (event) => {
+    event.preventDefault();
+    setEmail(event.target.value);
+  };
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(event.target["email"].value);
+    // check the email is valid
+    const userEmail = event.target["email"].value;
+    const district = event.target["district"].value;
+
+    db.collection("requests")
+      .add({
+        userEmail,
+        district,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then((docRef) => {
+        setMessage("You will be notified soon");
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Data couldn't be uploaded");
+      });
   };
 
   useEffect(() => {
@@ -32,10 +63,10 @@ export default function Dashboard() {
       .then((response) => {
         if (response.status === 200) {
           setInStates(response.data.states);
-          setError("Data couldn't be retrieved from Govt. server");
+          setError("");
         } else {
           setInStates([]);
-          setError();
+          setError("Data couldn't be retrieved from Govt. server");
         }
       })
       .catch((error) => {
@@ -54,12 +85,11 @@ export default function Dashboard() {
     })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data.districts);
           setDistricts(response.data.districts);
-          setError("Data couldn't be retrieved from Govt. server");
+          setError("");
         } else {
           setDistricts([]);
-          setError();
+          setError("Data couldn't be retrieved from Govt. server");
         }
       })
       .catch((error) => {
@@ -72,13 +102,18 @@ export default function Dashboard() {
     <div className="Dashboard">
       <Header />
       <main>
-        <form>
+        <form onSubmit={handleFormSubmit}>
           <div className="Dashboard-User-Container">
             <div className="Dashboard-Field-Container">
               <label>
                 <h4>Your email to get notified for vaccine slots?</h4>
                 <div className="Dashboard-Field">
-                  <input type="text" />
+                  <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={handleEmailInput}
+                  />
                 </div>
               </label>
             </div>
@@ -89,6 +124,7 @@ export default function Dashboard() {
                 <h4>Select the state where you reside?</h4>
                 <div className="Dashboard-Field">
                   <select
+                    name="inState"
                     value={selectedState}
                     onChange={handleInStateSelection}
                   >
@@ -111,6 +147,7 @@ export default function Dashboard() {
                 </h4>
                 <div className="Dashboard-Field">
                   <select
+                    name="district"
                     value={selectedDistrict}
                     onChange={handleDistrictSelection}
                   >
@@ -144,14 +181,18 @@ export default function Dashboard() {
                 </div>
               </label>
             </div> */}
-            <div type="submit" className="Dashboard-Notify-Button Btn">
-              NOTIFY ME IN EMAIL
-            </div>
+            <input
+              type="submit"
+              value="NOTIFY ME IN EMAIL"
+              className="Dashboard-Notify-Button Btn"
+            ></input>
           </div>
         </form>
       </main>
       <div className="Dashboard-Status-Container">
         <h2 className="Dashboard-Status-Header">Status</h2>
+        {error && <p>{error}</p>}
+        {message && <p>{message}</p>}
       </div>
     </div>
   );

@@ -133,6 +133,7 @@ input {
   background-color: #2b2d42;
   color: #fafafa;
   border: none;
+  width: unset;
 }
 
 .Dashboard-Status-Container {
@@ -141,6 +142,7 @@ input {
 
 .Dashboard-Status-Header {
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .Dashboard-Status-Header::before {
@@ -166,6 +168,10 @@ input {
 
 .Dashboard-User-Container {
   padding: 0 1rem 0;
+}
+
+main {
+  margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
