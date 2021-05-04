@@ -35,6 +35,11 @@ export default function Dashboard() {
     console.log(event.target["email"].value);
     // check the email is valid
     const userEmail = event.target["email"].value;
+
+    if (userEmail === "" || userEmail.indexOf("@") === -1) {
+      setMessage("Please specifiy your email");
+      return;
+    }
     const district = event.target["district"].value;
 
     db.collection("requests")
@@ -63,14 +68,17 @@ export default function Dashboard() {
       .then((response) => {
         if (response.status === 200) {
           setInStates(response.data.states);
+          setMessage("");
           setError("");
         } else {
           setInStates([]);
+          setMessage("");
           setError("Data couldn't be retrieved from Govt. server");
         }
       })
       .catch((error) => {
         console.log(error);
+        setMessage("");
         setError("Data couldn't be retrieved from Govt. server");
       });
   }, []);
@@ -86,14 +94,17 @@ export default function Dashboard() {
       .then((response) => {
         if (response.status === 200) {
           setDistricts(response.data.districts);
+          setMessage("");
           setError("");
         } else {
           setDistricts([]);
+          setMessage("");
           setError("Data couldn't be retrieved from Govt. server");
         }
       })
       .catch((error) => {
         console.log(error);
+        setMessage("");
         setError("Data couldn't be retrieved from Govt. server");
       });
   }, [selectedState]);
@@ -112,9 +123,10 @@ export default function Dashboard() {
     })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
           if (response.data.sessions.length > 0) {
-            setMessage("Vaccine slots are avilable for today.");
+            setMessage(
+              `Vaccine slots are avilable for today in ${response.data.sessions.length} centers.`
+            );
           } else {
             setMessage(
               "No vaccine slots are available for today. Click the notify button to get email."
@@ -124,11 +136,13 @@ export default function Dashboard() {
           setError("");
         } else {
           setDistricts([]);
+          setMessage("");
           setError("Data couldn't be retrieved from Govt. server");
         }
       })
       .catch((error) => {
         console.log(error);
+        setMessage("");
         setError("Data couldn't be retrieved from Govt. server");
       });
   }, [selectedDistrict]);
