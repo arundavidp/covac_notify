@@ -98,6 +98,41 @@ export default function Dashboard() {
       });
   }, [selectedState]);
 
+  useEffect(() => {
+    const [month, date, year] = new Date()
+      .toLocaleDateString("en-US")
+      .split("/");
+    const today = `${date}-${month}-${year}`;
+    axios({
+      method: "GET",
+      url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${selectedDistrict}&date=${today}`,
+      params: {
+        language: "en_US"
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          if (response.data.sessions.length > 0) {
+            setMessage("Vaccine slots are avilable for today.");
+          } else {
+            setMessage(
+              "No vaccine slots are available for today. Click the notify button to get email."
+            );
+          }
+
+          setError("");
+        } else {
+          setDistricts([]);
+          setError("Data couldn't be retrieved from Govt. server");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        setError("Data couldn't be retrieved from Govt. server");
+      });
+  }, [selectedDistrict]);
+
   return (
     <div className="Dashboard">
       <Header />

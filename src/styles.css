@@ -170,10 +170,6 @@ input {
   padding: 0 1rem 0;
 }
 
-main {
-  margin: 0 auto;
-}
-
 @media (min-width: 1024px) {
   .Dashboard {
     max-width: 1024px;
